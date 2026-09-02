@@ -202,3 +202,38 @@
   text-transform: uppercase;
 }
 
+@utility stat-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  border: 1px solid oklch(0.213 0.062 267 / 8%);
+  box-shadow: 0 4px 24px oklch(0.213 0.062 267 / 6%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px oklch(0.213 0.062 267 / 12%);
+  }
+}
+
+@utility stat-value {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  background: linear-gradient(135deg, oklch(0.213 0.062 267), oklch(0.531 0.086 249));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+@utility stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: oklch(0.336 0.063 254 / 70%);
+}
