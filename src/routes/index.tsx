@@ -22,6 +22,12 @@ export const Route = createFileRoute("/")({
 
 const WHATSAPP = "34644293791";
 
+const CONTACT_NUMBERS = [
+  { country: "España", number: "+34 644 293 791", raw: "34644293791", flag: "🇪🇸" },
+  { country: "Colombia", number: "+57 321 431 0644", raw: "573214310644", flag: "🇨🇴" },
+  { country: "Venezuela", number: "+58 414 600 7451", raw: "584146007451", flag: "🇻🇪" },
+];
+
 const areas = [
   {
     n: "01",
@@ -195,8 +201,11 @@ function Index() {
   }, []);
 
   const whatsappUrl = useMemo(() => {
+    let targetWa = WHATSAPP;
+    if (pais.includes("Colombia")) targetWa = "573214310644";
+    else if (pais.includes("Venezuela")) targetWa = "584146007451";
     const texto = `Hola, necesito asesoría metodológica.\nÁrea: ${area}\nNivel: ${nivel}\nUbicación/moneda: ${pais}\nEstado de avance: ${avance}`;
-    return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
+    return `https://wa.me/${targetWa}?text=${encodeURIComponent(texto)}`;
   }, [area, nivel, pais, avance]);
 
   return (
@@ -605,9 +614,14 @@ function Index() {
                 Solicitar presupuesto por WhatsApp
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </a>
-              <p className="mt-5 text-center text-[11px] tracking-wide text-navy-mid/60 uppercase">
-                Atención inmediata: +34 644 293 791
-              </p>
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[11px] tracking-wide text-navy-mid/70">
+                <span className="font-semibold uppercase text-navy-dark">Atención directa:</span>
+                <span className="inline-flex items-center gap-1 font-medium"><span>🇪🇸</span> +34 644 293 791</span>
+                <span>•</span>
+                <span className="inline-flex items-center gap-1 font-medium"><span>🇨🇴</span> +57 321 431 0644</span>
+                <span>•</span>
+                <span className="inline-flex items-center gap-1 font-medium"><span>🇻🇪</span> +58 414 600 7451</span>
+              </div>
             </div>
           </div>
         </div>
@@ -625,12 +639,22 @@ function Index() {
               <p className="mb-8 max-w-[45ch] font-light text-paper/50 text-sm leading-relaxed">
                 No pongas en riesgo años de estudio. Cupos limitados este mes para entregas urgentes y auditoría exprés.
               </p>
-              <div className="space-y-2">
-                <p className="eyebrow text-navy-light text-[10px]">Atención</p>
-                <div className="flex flex-wrap gap-6 text-sm opacity-70">
-                  <span>España +34</span>
-                  <span>Colombia +57</span>
-                  <span>Venezuela +58</span>
+              <div className="space-y-3">
+                <p className="eyebrow text-navy-light text-[10px]">Líneas de Atención WhatsApp</p>
+                <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
+                  {CONTACT_NUMBERS.map((c) => (
+                    <a
+                      key={c.country}
+                      href={`https://wa.me/${c.raw}?text=${encodeURIComponent("Hola, necesito asesoría académica")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-lg bg-white/5 px-3.5 py-2 text-xs text-paper/90 border border-white/10 hover:bg-white/15 hover:text-white transition-all group"
+                    >
+                      <span className="text-base leading-none">{c.flag}</span>
+                      <span className="font-semibold text-white">{c.country}:</span>
+                      <span className="font-mono text-paper/80 group-hover:text-white transition-colors">{c.number}</span>
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
